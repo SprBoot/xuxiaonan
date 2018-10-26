@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="InterfaceDao.meDao">
+	<!-- 取出个人信息 -->
+	<select id="getUser" resultType ="entity.user">
+		SELECT *
+FROM user_tb
+WHERE del_flag = 0;
+	</select>
+	<select id="getIntro" resultType ="entity.zssp">
+SELECT zssp_tb.*
+FROM zssp_tb JOIN user_tb
+on zssp_tb.zsid = user_tb.id
+WHERE zssp_tb.del_flag = 0 ANd user_tb.del_flag = 0
+LIMIT 0,4;
+	</select>
+	<select id ="getExper" resultType ="entity.nlms">
+	SELECT nlms_tb.*
+FROM nlms_tb JOIN user_tb
+on nlms_tb.nlid = user_tb.id
+WHERE nlms_tb.del_flag = 0 ANd user_tb.del_flag = 0
+LIMIT 0,3
+;
+	</select>
+	<select id="getXm" resultType ="entity.xm">
+	SELECT xm_tb.*
+FROM xmms_tb JOIN xm_tb
+on xmms_tb.xmid = xm_tb.id
+WHERE xmms_tb.del_flag = 0 AND xm_tb.del_flag = 0
+LIMIT 0,5;
+	</select>
+	<select id="getXmms" resultType ="entity.xmms">
+SELECT xmms_tb.*
+FROM xmms_tb JOIN xm_tb
+on xmms_tb.xmid = xm_tb.id
+WHERE xmms_tb.del_flag = 0 AND xm_tb.del_flag = 0
+LIMIT 0,5;
+	</select>
+	<select id="getXmcy" resultType ="entity.xmcy">
+	SELECT xmcy_tb.*
+FROM xmcy_tb JOIN(xmms_tb JOIN xm_tb on xmms_tb.xmid = xm_tb.id)
+on xmcy_tb.cyid = xmms_tb.xmid
+where xm_tb.del_flag = 0 AND xmms_tb.del_flag = 0 AND xmcy_tb.del_flag = 0;
+	</select>
+</mapper>

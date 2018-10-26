@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="InterfaceDao.mformDao">
+	<!-- 更新个人简介的内容 -->
+	<update id="updateJs" parameterType ="entity.user">
+		update user_tb set
+		name = #{name},
+		gzly = #{gzly},
+		grjs = #{grjs},
+		date = #{date},
+		del_flag = 0
+		where id = 1 AND del_flag = 0;
+	</update>
+	<select id ="getJs" resultType ="entity.user">
+		select * from user_tb where del_flag = 0;
+	</select>
+	<select id ="getZssp" resultType ="entity.zssp">
+		select * from
+		zssp_tb;
+	</select>
+	<update id ="updateZssp" parameterType="entity.zssp" >
+		update zssp_tb set
+		zsmc = #{zsmc},
+		percent = #{percent},
+		date = #{date},
+		del_flag = 0
+		where id =#{id} AND del_flag = 0;
+	</update>
+	<select id="getNl" resultType="entity.nlms">
+		SELECT * FROM 
+		nlms_tb;
+	</select>
+	<update id ="updateNl" parameterType="entity.nlms" >
+		update nlms_tb set
+		nlmc = #{nlmc},
+		nlzw = #{nlzw},
+		date = #{date},
+		del_flag = 0
+		where id =#{id} AND del_flag = 0;
+	</update>
+	<update id ="updateBj" parameterType="entity.bj" >
+		update bj_tb set
+		bjmc = #{bjmc},
+		bjzz = #{bjzz},
+		bjnr = #{bjnr},
+		date = #{date},
+		del_flag = 0
+		where id =#{id} AND del_flag = 0;
+	</update>
+	<update id ="updateBjlx" parameterType="entity.bjlx" >
+		update bjlx_tb set
+		lxmc = #{lxmc},
+		date = #{date},
+		del_flag = 0
+		where bjlxid =#{bjlxid} AND del_flag = 0;
+	</update>
+	<select id ="getXm" resultType ="entity.xm">
+		SELECT xm_tb.id,xm_tb.xmmc,date FROM xm_tb 
+		where xm_tb.del_flag = 0
+	</select>
+	<select id ="getXmms" resultType="entity.xmms" parameterType="int">
+		SELECT xmms_tb.xmid,xmms_tb.picid,xmms_tb.xmnr,xmms_tb.xmlx FROM xmms_tb
+		where xmms_tb.del_flag = 0 and xmid = #{xmid}
+	</select>
+	<select id ="getCy" resultType="entity.xmcy" parameterType="int">
+		select * FROM xmcy_tb
+		WHERE del_flag = 0 and cyid = #{cyid}
+	</select>
+	<insert id="insertPic" parameterType="entity.pic">
+	insert into pic_tb values(
+ 	null,
+ 	#{pid},
+ 	#{pname},
+ 	#{address},
+ 	#{type},
+ 	#{date},
+ 	#{del_flag}
+ 	);
+	</insert>
+	<insert id="insertBj" parameterType="entity.bj">
+	insert into bj_tb values(
+ 	null,
+ 	#{lxid},
+ 	#{bjmc},
+ 	#{bjzz},
+ 	#{bjnr},
+ 	#{date},
+ 	#{del_flag}
+ 	);
+	</insert>
+	<insert id="insertBjlx" parameterType="entity.bjlx">
+	insert into bjlx_tb values(
+ 	null,
+ 	#{bjlxid},
+ 	#{lxmc},
+ 	#{date},
+ 	#{del_flag}
+ 	);
+	</insert>
+	<insert id="insertSj" parameterType="entity.ts">
+	insert into ts_tb values(
+ 	null,
+ 	#{picid},
+ 	#{tsmc},
+ 	#{tslx},
+ 	#{cbs},
+ 	#{zbz},
+ 	#{price},
+ 	#{lanuage},
+ 	#{tjyy},
+ 	#{date},
+ 	#{del_flag}
+ 	);
+	</insert>
+	<update id ="updateXm" parameterType="entity.xmms" >
+		UPDATE xm_tb JOIN xmms_tb
+		on xm_tb.id = xmms_tb.xmid
+		SET xmms_tb.picid = #{picid}
+		where xmms_tb.xmid = #{xmid} and xm_tb.del_flag = 0;
+	</update>
+		<insert id="insertSh" parameterType="entity.sh">
+	insert into sh_tb values(
+ 	null,
+ 	#{mc},
+ 	#{auth},
+ 	#{js},
+ 	#{picid},
+ 	#{date},
+ 	#{del_flag}
+ 	);
+	</insert>
+	<select id="getSh" resultType = "entity.sh" parameterType="Integer">
+		select * from sh_tb
+		where del_flag = 0
+		LIMIT #{count};
+	</select>
+	<select id="getSj" resultType = "entity.ts" parameterType="Integer">
+		select * from ts_tb
+		where del_flag = 0
+		LIMIT #{count};
+	</select>
+	<select id="getYx" resultType = "entity.yx" parameterType="Integer">
+		select * from yx_tb
+		where del_flag = 0
+		LIMIT #{count};
+	</select>
+	<select id="getBj" resultType = "entity.bj" parameterType="Integer">
+		select * from bj_tb
+		where del_flag = 0
+		LIMIT #{count};
+	</select>
+	<select id="getShById" resultType="entity.sh" parameterType="Integer">
+		select * from sh_tb
+		where del_flag = 0 AND id = #{id}
+	</select>
+	<select id="getBjById" resultType="entity.bj" parameterType="Integer">
+		select * from bj_tb
+		where del_flag = 0 AND id = #{id}
+	</select>
+	<select id="getBjlxById" resultType="entity.bjlx" parameterType="String">
+		SELECT * FROM bjlx_tb WHERE bjlxid = #{bjlxid} AND del_flag = 0;
+	</select>
+	<select id="getYxById" resultType="entity.yx" parameterType="Integer">
+		select * from yx_tb
+		where del_flag = 0 AND id = #{id}
+	</select>
+	<select id="getSjById" resultType="entity.ts" parameterType="Integer">
+		select * from ts_tb
+		where del_flag = 0 AND id = #{id}
+	</select>
+	<select id="getShByCount" resultType="entity.sh" >
+		select * from sh_tb where del_flag = 0  LIMIT #{0},#{1};
+	</select>
+	<select id = "getShCount" resultType ="Integer">
+		select count(*) from sh_tb
+		where del_flag = 0;
+	</select>
+	<select id="getSjByCount" resultType="entity.ts" >
+		select * from ts_tb where del_flag = 0  LIMIT #{0},#{1};
+	</select>
+	<select id="getYxByCount" resultType="entity.yx" >
+		select * from yx_tb where del_flag = 0  LIMIT #{0},#{1};
+	</select>
+	<select id = "getSjCount" resultType ="Integer">
+		select count(*) from ts_tb
+		where del_flag = 0;
+	</select>
+	<select id = "getBjCount" resultType ="Integer">
+		select count(*) from bj_tb
+		where del_flag = 0;
+	</select>
+	<select id="getBjByCount" resultType="entity.bj" >
+		select * from bj_tb where del_flag = 0  LIMIT #{0},#{1};
+	</select>
+	<select id = "getYxCount" resultType ="Integer">
+		select count(*) from yx_tb
+		where del_flag = 0;
+	</select>
+	<update id ="updateSh" parameterType="entity.sh" >
+		update sh_tb set
+		mc = #{mc},
+		auth = #{auth},
+		picid = #{picid},
+		js = #{js},
+		date = #{date},
+		del_flag = 0
+		where id =#{id} AND del_flag = 0;
+	</update>
+	<update id="deleteSh" parameterType="entity.sh">
+		update sh_tb set
+		del_flag = 1
+		where id = #{id} AND del_flag = 0;
+	</update>
+	<update id="deleteYx" parameterType="entity.yx">
+		update yx_tb set
+		del_flag = 1
+		where id = #{id} AND del_flag = 0;
+	</update>
+	<update id="deleteSj" parameterType="entity.ts">
+		update ts_tb set
+		del_flag = 1
+		where id = #{id} AND del_flag = 0;
+	</update>
+	<update id="deleteBj" parameterType="entity.bj">
+		update bj_tb set
+		del_flag = 1
+		where id = #{id} AND del_flag = 0;
+	</update>
+	<insert id="insertYx" parameterType="entity.yx">
+	insert into yx_tb values(
+ 	null,
+ 	#{yxmc},
+ 	#{yxkfs},
+ 	#{grgs},
+ 	#{picid},
+ 	#{date},
+ 	#{del_flag}
+ 	);
+	</insert>
+	<update id ="updateYx" parameterType="entity.yx" >
+		update yx_tb set
+		yxmc = #{yxmc},
+		yxkfs = #{yxkfs},
+		grgs = #{grgs},
+		picid = #{picid},
+		date = #{date},
+		del_flag = 0
+		where id =#{id} AND del_flag = 0;
+	</update>
+	<update id ="updateSj" parameterType="entity.ts" >
+		update ts_tb set
+		picid = #{picid},
+		tsmc = #{tsmc},
+		tslx = #{tslx},
+		cbs = #{cbs},
+		zbz = #{zbz},
+		price = #{price},
+		lanuage = #{lanuage},
+		tjyy = #{tjyy},
+		date = #{date},
+		del_flag = 0
+		where id =#{id} AND del_flag = 0;
+	</update>
+	<update id ="updatePic" parameterType="entity.pic" >
+		update pic_tb set
+		pid = #{pid},
+		pname = #{pname},
+		address = #{address},
+		date = #{date},
+		del_flag = 0
+		where id = #{id} AND del_flag = 0;
+	</update>
+	<select id ="getPic" resultType = "entity.pic" parameterType="String">
+		select * from pic_tb
+		where pid = #{pid} AND del_flag = 0
+	</select>
+</mapper>
